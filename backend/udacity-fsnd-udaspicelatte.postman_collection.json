@@ -639,7 +639,7 @@
 		{
 			"id": "7da0fa13-ecd9-4d7d-8e38-fde2c81cfdaf",
 			"key": "host",
-			"value": "localhost:5000",
+			"value": "http://127.0.0.1:5000",
 			"type": "string"
 		}
 	]

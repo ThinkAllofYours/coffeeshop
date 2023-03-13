@@ -60,7 +60,7 @@ def get_drinks():
 """
 
 
-@app.route("/drinks-detail", methods=["GET"])
+@app.route("/drinks-detail", method=["GET"])
 @requires_auth("get:drinks-detail")
 def drinks_detail(payload):
     drinks = Drink.query.all()
@@ -83,7 +83,7 @@ def drinks_detail(payload):
 """
 
 
-@app.route("/drinks", methods=["POST"])
+@app.route("/drinks", method=["POST"])
 @requires_auth("post:drinks")
 def create_drink(payload):
     data = request.get_json()
@@ -125,14 +125,14 @@ def create_drink(payload):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 """
-
-
 @app.route("/drinks/<int:id>", methods=["PATCH"])
 @requires_auth("patch:drinks")
 def update_drink(payload, id):
+
     data = request.get_json()
     title = data.get("title")
     recipe = data.get("recipe")
+
 
     if not any([title, recipe]):
         abort(400)
@@ -149,20 +149,14 @@ def update_drink(payload, id):
         drink.update()
     except Exception as e:
         log.error(e, exc_info=True)
-        return (
-            jsonify(
-                {
-                    "success": False,
-                    "error": 400,
-                    "message": str(e),
-                }
-            ),
-            400,
-        )
+        return jsonify({
+            "success": False,
+            "error": 400,
+            "message": str(e),
+        }), 400
 
     drinks = [drink.short()]
     return jsonify({"success": True, "drinks": drinks}), 200
-
 
 """
 @TODO implement endpoint
@@ -174,13 +168,6 @@ def update_drink(payload, id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 """
-
-
-@app.route("/drinks/<int:id>", methods=["DELETE"])
-@requires_auth("delete:drinks")
-def delete_drink(payload, id):
-    Drink.query.get_or_404(id).delete()
-    return jsonify({"success": True, "delete": id}), 200
 
 
 # Error Handling

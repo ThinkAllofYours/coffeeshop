@@ -23,7 +23,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
       // Perform required auth actions
       this.auth.load_jwts();
       this.auth.check_token_fragment();

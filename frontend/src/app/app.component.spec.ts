@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
 
@@ -43,5 +44,11 @@ describe('AppComponent', () => {
   });
 
   // TODO: add more tests!
-
+  it('should have a menu with 3 items', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    const menuItems = fixture.debugElement.queryAll(By.css('ion-app'));
+    console.log(fixture.debugElement.nativeNode);
+    expect(menuItems.length).toEqual(1);
+  });
 });

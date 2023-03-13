@@ -8,6 +8,8 @@
 
 #### Installing Node and NPM
 
+#### node version v12.22.12
+
 This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
 
 #### Installing Ionic Cli
@@ -37,7 +39,7 @@ Ionic uses a configuration file to manage environment variables. These variables
 Ionic ships with a useful development server which detects changes and transpiles as you work. The application is then accessible through the browser on a localhost port. To run the development server, cd into the `frontend` directory and run:
 
 ```bash
-ionic serve
+npm start
 ```
 
 > _tip_: Do not use **ionic serve** in production. Instead, build Ionic into a build artifact for your desired platforms.
@@ -54,3 +56,10 @@ The authentication system used for this project is Auth0. `./src/app/services/au
 ### Authorization
 
 The Auth0 JWT includes claims for permissions based on the user's role within the Auth0 system. This project makes use of these claims using the `auth.can(permission)` method which checks if particular permissions exist within the JWT permissions claim of the currently logged in user. This method is defined in  `./src/app/services/auth.service.ts` and is then used to enable and disable buttons in `./src/app/pages/drink-menu/drink-form/drink-form.html`.
+
+#### TEST CODE
+```bash
+node_modules/protractor/bin/webdriver-manager clean
+node_modules/protractor/bin/webdriver-manager update --versions.chrome=[your chrome version]
+npm run test
+```

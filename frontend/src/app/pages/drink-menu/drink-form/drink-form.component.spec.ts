@@ -3,6 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DrinkFormComponent } from './drink-form.component';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ModalController } from '@ionic/angular';
+
 describe('DrinkFormComponent', () => {
   let component: DrinkFormComponent;
   let fixture: ComponentFixture<DrinkFormComponent>;
@@ -11,6 +14,10 @@ describe('DrinkFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ DrinkFormComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [HttpClientTestingModule],
+      providers: [
+        { provide: ModalController },
+      ],
     })
     .compileComponents();
   }));
