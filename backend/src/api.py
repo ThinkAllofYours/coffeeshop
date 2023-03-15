@@ -93,7 +93,9 @@ def create_drink(payload):
     if not all([title, recipe]):
         abort(400)
 
-    drink = Drink(title=title, recipe=json.dumps(recipe if isinstance(recipe, list) else [recipe]))
+    drink = Drink(
+        title=title, recipe=json.dumps(recipe if isinstance(recipe, list) else [recipe])
+    )
 
     try:
         drink.insert()
@@ -216,7 +218,10 @@ def bad_request(error):
 
 @app.errorhandler(404)
 def not_found(error):
-    return jsonify({"success": False, "error": 404, "message": "resource not found"}), 404
+    return (
+        jsonify({"success": False, "error": 404, "message": "resource not found"}),
+        404,
+    )
 
 
 @app.errorhandler(500)

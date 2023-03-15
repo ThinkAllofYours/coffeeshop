@@ -55,7 +55,9 @@ def get_token_auth_header():
             401,
         )
     elif len(parts) == 1:
-        raise AuthError({"code": "invalid_header", "description": "Token not found."}, 401)
+        raise AuthError(
+            {"code": "invalid_header", "description": "Token not found."}, 401
+        )
     elif len(parts) > 2:
         raise AuthError(
             {
@@ -93,7 +95,9 @@ def check_permissions(permission, payload):
     print(payload)
     print(payload["permissions"])
     if permission not in payload["permissions"]:
-        raise AuthError({"code": "unauthorized", "description": "Permission not found."}, 403)
+        raise AuthError(
+            {"code": "unauthorized", "description": "Permission not found."}, 403
+        )
 
     return True
 
@@ -116,7 +120,9 @@ def check_permissions(permission, payload):
 def verify_decode_jwt(token):
     header = jwt.get_unverified_header(token)
     if "kid" not in header:
-        raise AuthError({"code": "invalid_header", "description": "token should contain kid"}, 401)
+        raise AuthError(
+            {"code": "invalid_header", "description": "token should contain kid"}, 401
+        )
 
     # it should verify the token using Auth0 /.well-known/jwks.json
     iss = f"https://{AUTH0_DOMAIN}/"
@@ -131,7 +137,11 @@ def verify_decode_jwt(token):
 
     if not rsa_key:
         raise AuthError(
-            {"code": "invalid_header", "description": "Unable to find the appropriate key."}, 403
+            {
+                "code": "invalid_header",
+                "description": "Unable to find the appropriate key.",
+            },
+            403,
         )
 
     # it should decode the payload from the token
@@ -145,7 +155,9 @@ def verify_decode_jwt(token):
         )
 
     except jwt.ExpiredSignatureError:
-        raise AuthError({"code": "token_expired", "description": "token is expired"}, 401)
+        raise AuthError(
+            {"code": "token_expired", "description": "token is expired"}, 401
+        )
 
     except jwt.JWTClaimsError:
         raise AuthError(
